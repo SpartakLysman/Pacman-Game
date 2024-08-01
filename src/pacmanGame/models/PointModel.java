@@ -13,11 +13,11 @@ public class PointModel extends BaseModel{
     }
 
     private String resolveImageName(GameModel model) {
-        return Constants.EMPTY_SPACE_FILE_NAME;
+        return Constants.POINT_FILE_NAME;
     }
 
     @Override
     public int getImageSize() {
-        return 50 * model.getScreenScale();
+        return model.getCellSize();
     }
 }

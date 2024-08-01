@@ -77,6 +77,8 @@ public class Constants {
     static public final String SQUARE_ICON_FILE_NAME = "./images/icons/SQUARE_ICON.png";
     static public final String START_ICON_FILE_NAME = "./images/icons/START_ICON.png";
     static public final String STRAWBERRY_ICON_FILE_NAME = "./images/icons/STRAWBERRY_ICON.png";
+    //
+    static public final String HEART_FILE_NAME = "./images/health_&_stamina/HEART.png";
 
 
     //SCORES
@@ -87,10 +89,11 @@ public class Constants {
 
 
     //POINT
+    static public final String POINT_FILE_NAME = "./images/point/point.png";
 
 
     //BONUS
-
+    static public final String BONUS_FILE_NAME = "./images/bonus/bonus.png";
 
     //WALL
         //CORNERS
@@ -127,7 +130,7 @@ public class Constants {
     static public final String EMPTY_SPACE_FILE_NAME = "./images/EMPTY_SPACE.png";
 
     //GHOSTS COUNTER
-    static public final int INITIAL_GHOSTS_COUNT = 5;
+    static public final int INITIAL_GHOSTS_COUNT = 10;
 
     ///////////    score counter, time counter, life counter,
     ///////////    the player is asked for the name under which they want to be savedin high scores.

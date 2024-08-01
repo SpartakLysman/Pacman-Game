@@ -8,21 +8,21 @@ public class EmptySpaceModel extends BaseModel {
 
     public EmptySpaceModel(GameModel model) {
         super(model);
-        String imageName = resolveImageName(model);
+        String imageName = resolveImageName();
         setFileName(imageName);
     }
 
-    private String resolveImageName(GameModel model) {
+    private String resolveImageName() {
         return Constants.EMPTY_SPACE_FILE_NAME;
     }
 
     @Override
     public int getImageSize() {
-        return 50 * model.getScreenScale();
+        return model.getCellSize();
     }
 
     @Override
     public boolean move(Direction direction) {
-        return  false;
+        return false;
     }
 }

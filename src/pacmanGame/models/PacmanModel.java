@@ -5,9 +5,12 @@ import pacmanGame.screens.gameScreen.Direction;
 import pacmanGame.screens.gameScreen.GameModel;
 
 public class PacmanModel extends BaseModel {
+
     private int imageNumber = 0;
     private String firstPartImageName;
     private Direction direction = Direction.RIGHT;
+    private int health = 100;
+    private int lives = 5;
 
     public PacmanModel(GameModel model) {
         super(model);
@@ -15,6 +18,22 @@ public class PacmanModel extends BaseModel {
         setFileName(firstPartImageName + "PACMAN_MIDDLE_MOUTH.png");
         System.out.println(getFileNameString());
         System.out.println("Pac-man model created");
+    }
+
+    public void ghostCollision() {
+        if (health == 1) {
+            lives--;
+            health = 100;
+        } else {
+            health--;
+        }
+
+        if (lives == 0) {
+            model.gameOver();
+        }
+
+        System.out.println("Health: " + health);
+        System.out.println("Lives: " + lives);
     }
 
     private String resolveImageName() {
@@ -79,7 +98,6 @@ public class PacmanModel extends BaseModel {
         y += ySpeed;
 
         firstPartImageName = resolveImageName();  // Update the first part of the image name based on the new direction
-       //setFileName(firstPartImageName + "PACMAN_MIDDLE_MOUTH.png");  // Ensure the file name is updated correctly
         return true;
     }
 
@@ -92,10 +110,10 @@ public class PacmanModel extends BaseModel {
         switch (direction) {
 
             case UP, DOWN -> {
-                isCanMove = !model.isWallForward(centerX-(model.getCellSize()-1), centerY, direction) && !model.isWallForward(centerX, centerY, direction);
+                isCanMove = !model.isWallForward(centerX - (model.getCellSize() - 1), centerY, direction) && !model.isWallForward(centerX, centerY, direction);
             }
             case LEFT, RIGHT -> {
-                isCanMove = !model.isWallForward(centerX, centerY-(model.getCellSize()-1), direction) && !model.isWallForward(centerX, centerY, direction);
+                isCanMove = !model.isWallForward(centerX, centerY - (model.getCellSize() - 1), direction) && !model.isWallForward(centerX, centerY, direction);
             }
         }
         return isCanMove;
@@ -103,5 +121,17 @@ public class PacmanModel extends BaseModel {
 
     private boolean canMove() {
         return canMove(this.direction);
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void pointCollision() {
+        health += 5;
     }
 }

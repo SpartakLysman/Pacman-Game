@@ -22,11 +22,11 @@ public class GameModel {
     private final int[][] mapTemplate;
 
     public GameModel(FieldPanel field, int mapWidth, int mapHeight, int cellSize) {
-        mapTemplate = selectMapTemplate();
         this.field = field;
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
         this.cellSize = cellSize;
+        mapTemplate = selectMapTemplate();
         generateGhosts();
         pacman = new Pacman(new PacmanModel(this));
         setPacmanInitialPosition();
@@ -40,34 +40,28 @@ public class GameModel {
         pacman.moveTo(startX, startY);
     }
 
-//    public boolean isPacmanCanMove(Direction direction) {
-//        return pacman.isCanMove(direction);
-//    }
-
     public boolean isWallForward(float x, float y, Direction direction) {
-        int cellX = Math.round((x - 1) / cellSize);
-        int cellY = Math.round((y - 1) / cellSize);
+        int cellX = getCell(x);
+        int cellY = getCell(y);
 
         switch (direction) {
             case UP:
-                cellX = Math.round((x - 1) / cellSize);
-                cellY = Math.round((y - 1) / cellSize);
+                cellX = getCell(x);
+                cellY = getCell(y);
                 cellY -= 1;
                 break;
             case DOWN:
-                cellX = Math.round((x - 1) / cellSize);
-                cellY = Math.round((y) / cellSize);
-                //  cellY += 1;
+                cellX = getCell(x);
+                cellY = getCell(y + 1);
                 break;
             case LEFT:
-                cellX = Math.round((x - 1) / cellSize);
-                cellY = Math.round((y - 1) / cellSize);
+                cellX = getCell(x);
+                cellY = getCell(y);
                 cellX -= 1;
                 break;
             case RIGHT:
-                cellX = Math.round((x) / cellSize);
-                cellY = Math.round((y - 1) / cellSize);
-                 //cellX += 1;
+                cellX = getCell(x + 1);
+                cellY = getCell(y);
                 break;
             case NONE:
                 return false;
@@ -80,7 +74,12 @@ public class GameModel {
         return mapTemplate[cellY][cellX] == 1 || mapTemplate[cellY][cellX] == 2;
     }
 
+    public int getCell(float size) {
+        return Math.round((size - 1) / cellSize);
+    }
+
     public int[][] selectMapTemplate() {
+        System.out.println("Map Width: " + mapWidth);
         switch (mapWidth) {
             case 21:
                 return GameMaps.LEVEL_1_21x21;
@@ -125,9 +124,9 @@ public class GameModel {
                         map[i][j] = new WallShape(model);
                         break;
                     case 3:
-                        model = new EmptySpaceModel(this);
+                        model = new PointModel(this);
                         model.moveTo(i * Constants.DEFAULT_CELL_SIZE, j * Constants.DEFAULT_CELL_SIZE);
-                        map[i][j] = new EmptySpace(model);
+                        map[i][j] = new Point(model);
                         break;
                 }
             }
@@ -145,13 +144,48 @@ public class GameModel {
         if (ghosts != null && !ghosts.isEmpty()) {
             gameShapes.addAll(ghosts);
         }
-        gameShapes.add(pacman);
+        if (pacman != null) {
+            gameShapes.add(pacman);
+        }
 
         return gameShapes;
     }
 
+    public void checkCollision() {
+        if (pacman == null) {
+            return;
+        }
+        int pacamanCellX = getCell(pacman.getX());
+        int pacamanCellY = getCell(pacman.getY());
+
+        for (var shape : ghosts) {
+            int shapeCellX = getCell(shape.getX());
+            int shapeCellY = getCell(shape.getY());
+
+            if (pacamanCellX == shapeCellX && pacamanCellY == shapeCellY) {
+                ghostCollision();
+                ghosts.remove(shape);
+                return;
+            }
+        }
+
+        try {
+            Point point = (Point) map[pacamanCellX][pacamanCellY];
+            var emptyModel = new EmptySpaceModel(this);
+            emptyModel.moveTo(pacamanCellX * Constants.DEFAULT_CELL_SIZE, pacamanCellY * Constants.DEFAULT_CELL_SIZE);
+            map[pacamanCellX][pacamanCellY] = new EmptySpace(emptyModel);
+            pacman.pointCollision();
+        } catch (ClassCastException e) {
+
+        }
+    }
+
+    private void ghostCollision() {
+        pacman.ghostCollision();
+    }
+
     public boolean isFreeSpace(int x, int y) {
-     return mapTemplate[y][x] == 0;
+        return mapTemplate[y][x] == 0 || mapTemplate[y][x] == 3;
     }
 
     public int getMapWidth() {
@@ -168,6 +202,11 @@ public class GameModel {
 
     public int getCellSize() {
         return cellSize;
+    }
+
+    public void gameOver() {
+        pacman = null;
+        System.out.println("You Lost");
     }
 }
 

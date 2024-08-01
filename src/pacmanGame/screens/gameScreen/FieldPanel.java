@@ -34,8 +34,12 @@ public class FieldPanel extends JPanel implements KeyListener, Runnable {
             }
         });
         setLayout(null);
-        backButton.setBounds(150, 400, 120, 30);
+        backButton.setBounds(width / 2 - 60, height - 25, 120, 30);
         add(backButton);
+    }
+
+    public void checkCollision() {
+       model.checkCollision();
     }
 
     private void returnToMenu() {
@@ -100,9 +104,6 @@ public class FieldPanel extends JPanel implements KeyListener, Runnable {
 
     @Override
     public void keyReleased(KeyEvent e) {
-//        int keyCode = e.getKeyCode();
-//        System.out.println(keyCode);
-//        direction = Direction.NONE;
         newDirection = direction;
     }
 
@@ -113,11 +114,11 @@ public class FieldPanel extends JPanel implements KeyListener, Runnable {
             for (var shape : model.getShapes()) {
                if (shape.move(newDirection)) {
                    direction = newDirection;
-                   System.out.println("direction =" + direction);
                } else {
                    shape.move(direction);
                };
             }
+            checkCollision();
             repaint();
             try {
                 Thread.sleep(20); // Додамо трошки затримки для зменшення швидкості руху

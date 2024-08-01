@@ -10,13 +10,13 @@ import java.awt.image.BufferedImage;
 public class GameShape { //configure with model. configurable interface.->baseModel
 
     protected Image image;
-    //public GameModel gameModel;
     protected BaseModel model;
 
     public GameShape(BaseModel model) {
         this.model = model;
+        System.out.println("Image Name: " + model.getFileName() + ", Image Size: " + model.getImageSize());
         image = scaleImage(new ImageIcon(model.getFileName().get()).getImage(), model.getImageSize());
-        //System.out.println("Image= " + image);
+        System.out.println("Image: " + image);
     }
 
     protected Image scaleImage(Image image, int imageSize) {
@@ -36,7 +36,6 @@ public class GameShape { //configure with model. configurable interface.->baseMo
 
     public void setImage() {
         image = scaleImage(new ImageIcon(model.getFileName().get()).getImage(), model.getImageSize());
-        System.out.println("Model file name: " + model.getFileName().get());
     }
 
     public int getX() {

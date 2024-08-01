@@ -2,7 +2,6 @@ package pacmanGame.shapes;
 
 import pacmanGame.models.BaseModel;
 import pacmanGame.models.PacmanModel;
-import pacmanGame.screens.gameScreen.Direction;
 
 public class Pacman extends GameShape {
 
@@ -34,16 +33,15 @@ public class Pacman extends GameShape {
         }
     }
 
-//    @Override
-//    public void setImage() {
-//        super.setImage();  // Call the parent's setImage to ensure proper functionality
-//    }
-
-//    public boolean isCanMove(Direction direction) {
-//       return ((PacmanModel)model).canMove(direction);
-//    }
-
     public void moveTo(int startX, int startY) {
         model.moveTo(startX, startY);
+    }
+
+    public void ghostCollision() {
+        ((PacmanModel) model).ghostCollision();
+    }
+
+    public void pointCollision() {
+        ((PacmanModel) model).pointCollision();
     }
 }

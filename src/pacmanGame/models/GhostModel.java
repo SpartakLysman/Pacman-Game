@@ -59,7 +59,7 @@ public class GhostModel extends BaseModel {
         if (!canMove()) {
             return false;
         }
-        switch (direction) {
+        switch (this.direction) {
             case UP:
                 ySpeed = -1;
                 xSpeed = 0;
@@ -93,7 +93,6 @@ public class GhostModel extends BaseModel {
         int centerY = y + halfImageSize;
 
         switch (direction) {
-
             case UP, DOWN -> {
                 isCanMove = !model.isWallForward(centerX - (model.getCellSize() - 1), centerY, direction) && !model.isWallForward(centerX, centerY, direction);
             }
@@ -109,15 +108,10 @@ public class GhostModel extends BaseModel {
     }
 
     public void changeImageName() {
-        setFileName(firstPartImageName + "/" + color + "/GHOST.png");
+        setFileName(firstPartImageName + color + "/GHOST.png");
     }
 
-    public void changeDirection(int num) {
-        switch (num) {
-            case 0 -> {direction = Direction.UP; }
-            case 1 -> {direction = Direction.DOWN; }
-            case 2 -> {direction = Direction.LEFT; }
-            case 3 -> {direction = Direction.RIGHT; }
-        }
+    public void changeDirection(Direction direction) {
+        this.direction = direction;
     }
 }
