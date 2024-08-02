@@ -1,7 +1,6 @@
 package pacmanGame.screens.gameScreen;
 
 import pacmanGame.Constants;
-import pacmanGame.models.*;
 import pacmanGame.screens.menuScreen.MenuModel;
 import pacmanGame.screens.menuScreen.MenuPanel;
 
@@ -10,17 +9,21 @@ import java.awt.*;
 //
 
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameScreenFrame extends JFrame {
     private FieldPanel fieldPanel;
     private ScorePanel scorePanel;
+    private HealthPanel healthPanel;
+    private TimePanel timePanel;
     private MenuPanel menuScreen;
     private GameModel model;
     private int cellSize = Constants.DEFAULT_CELL_SIZE;
+    private final int scorePanelSize = 40;
+    private final int healthPanelSize = 40;
+    private final int borderSize = 25;
+
 
     public GameScreenFrame() {
         initialize();
@@ -35,7 +38,7 @@ public class GameScreenFrame extends JFrame {
         setLayout(new BorderLayout());
     }
 
-     void showMenuScreen() {
+    void showMenuScreen() {
         String title = "Pac-Man Menu";
         String[] options = {"Start Game", "Options", "Exit"};
         MenuModel menuModel = new MenuModel(title, options);
@@ -81,6 +84,8 @@ public class GameScreenFrame extends JFrame {
             fieldPanel = new FieldPanel(mapWidth * cellSize, mapHeight * cellSize);
             model = new GameModel(fieldPanel, mapWidth, mapHeight, cellSize);
             fieldPanel.setModel(model);
+            createScorePanel();
+            createHealthPanel();
 
             startGame(mapWidth, mapHeight);
         }
@@ -88,7 +93,8 @@ public class GameScreenFrame extends JFrame {
 
     private void startGame(int mapWidth, int mapHeight) {
         remove(menuScreen);
-        setSize(mapWidth * cellSize, mapHeight * cellSize + 65);
+        int windowHeight = mapHeight * cellSize + scorePanelSize + healthPanelSize + borderSize;
+        setSize(mapWidth * cellSize, windowHeight);
 
         getContentPane().removeAll();
         invalidate();
@@ -99,7 +105,7 @@ public class GameScreenFrame extends JFrame {
         Timer timer = new Timer(2000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showGameField();
+                showPanels();
                 ((Timer) e.getSource()).stop(); // Stop the timer after one execution
             }
         });
@@ -107,81 +113,26 @@ public class GameScreenFrame extends JFrame {
         timer.start();
     }
 
-    private void showGameField() {
+    private void showPanels() {
         getContentPane().removeAll();
+        getContentPane().add(healthPanel, BorderLayout.SOUTH);
         getContentPane().add(fieldPanel, BorderLayout.CENTER);
+        getContentPane().add(scorePanel, BorderLayout.NORTH);
+        //getContentPane().add(timePanel, BorderLayout.EAST);
+
         revalidate();
         repaint();
         fieldPanel.requestFocusInWindow();
         setVisible(true);
     }
-}
 
-//public class GameScreenFrame extends JFrame {
-//    private FieldPanel fieldPanel;
-//    private ScorePanel scorePanel;
-//    private MenuPanel menuScreen;
-//    private GameModel model;
-//    private int mapHeight = 20;
-//    private int mapWidth = 30;
-//    private int cellSize = 20;
-//
-//    public GameScreenFrame() {
-//        initialize();
-//        showMenuScreen();
-//    }
-//
-//    private void initialize() {
-//        setTitle("Pac-Man");
-//        setSize(600, 800);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        setLocationRelativeTo(null);
-//        setLayout(new BorderLayout());
-//    }
-//
-//    private void showMenuScreen() {
-//        String title = "Pac-Man Menu";
-//        String[] options = {"Start Game", "Options", "Exit"};
-//        MenuModel menuModel = new MenuModel(title, options);
-//        menuScreen = new MenuPanel(menuModel);
-//        menuScreen.setMenuListener(new MenuPanel.MenuListener() {
-//            @Override
-//            public void onStartGame() {
-//                startGame();
-//            }
-//
-//            @Override
-//            public void onOptions() {
-//                // Handle options
-//                System.out.println("Options clicked");
-//            }
-//
-//            @Override
-//            public void onExit() {
-//                System.exit(0);
-//            }
-//        });
-//
-//        getContentPane().removeAll();
-//        getContentPane().add(menuScreen, BorderLayout.CENTER);
-//        revalidate();
-//        repaint();
-//        setVisible(true);
-//    }
-//
-//    private void startGame() {
-//        remove(menuScreen);
-//        setSize(mapWidth * cellSize, mapHeight * cellSize);
-//        fieldPanel = new FieldPanel(mapWidth * cellSize, mapHeight * cellSize);
-//
-//        model = new GameModel(fieldPanel, mapWidth, mapHeight);
-//        fieldPanel.setModel(model);
-//
-//        getContentPane().removeAll();
-//        getContentPane().add(fieldPanel, BorderLayout.CENTER);
-//        revalidate();
-//        repaint();
-//        fieldPanel.requestFocusInWindow();
-//        setVisible(true);
-//    }
-//}
+    private void createHealthPanel() {
+        healthPanel = new HealthPanel(fieldPanel.getWidth(), 40);
+//        healthPanel.setBackground(Color.orange);
+    }
+
+    private void createScorePanel() {
+        scorePanel = new ScorePanel(fieldPanel.getWidth(), 40);
+        scorePanel.setBackground(Color.black);
+    }
+}

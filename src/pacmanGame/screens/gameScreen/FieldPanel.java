@@ -26,30 +26,30 @@ public class FieldPanel extends JPanel implements KeyListener, Runnable {
         newDirection= Direction.NONE;
         setFocusable(true); // Робимо компонент спрямованим на отримання фокусу, щоб слухати події клавіатури
         addKeyListener(this);
-        backButton = new JButton("menu");
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                returnToMenu();
-            }
-        });
-        setLayout(null);
-        backButton.setBounds(width / 2 - 60, height - 25, 120, 30);
-        add(backButton);
+//        backButton = new JButton("menu");
+//        backButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                returnToMenu();
+//            }
+//        });
+//        setLayout(null);
+//        backButton.setBounds(width / 2 - 60, height - 25, 120, 30);
+//        add(backButton);
     }
 
     public void checkCollision() {
        model.checkCollision();
     }
 
-    private void returnToMenu() {
-        // Notify the frame to return to the menu
-        Container parent = this.getParent();
-        while (!(parent instanceof GameScreenFrame)) {
-            parent = parent.getParent();
-        }
-        ((GameScreenFrame) parent).showMenuScreen();
-    }
+//    private void returnToMenu() {
+//        // Notify the frame to return to the menu
+//        Container parent = this.getParent();
+//        while (!(parent instanceof GameScreenFrame)) {
+//            parent = parent.getParent();
+//        }
+//        ((GameScreenFrame) parent).showMenuScreen();
+//    }
 
     public void setModel(GameModel model) {
         this.model = model;
@@ -131,5 +131,10 @@ public class FieldPanel extends JPanel implements KeyListener, Runnable {
     @Override
     public int getHeight() {
         return height;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
     }
 }

@@ -87,6 +87,19 @@ public class Constants {
     static public final String SEVEN_SCORE_FILE_NAME = "./images/scores/700_SCORE.png";
     static public final String THOUSAND_SCORE_FILE_NAME = "./images/scores/1000_SCORE.png";
 
+        //TIME
+        static public final String ZERO_TIME_FILE_NAME = "./images/scores/TIME/0.png";
+        static public final String ONE_TIME_FILE_NAME = "./images/scores/TIME/1.png";
+        static public final String TWO_TIME_FILE_NAME = "./images/scores/TIME/2.png";
+        static public final String THREE_TIME_FILE_NAME = "./images/scores/TIME/3.png";
+        static public final String FOUR_TIME_FILE_NAME = "./images/scores/TIME/4.png";
+        static public final String FIVE_TIME_FILE_NAME = "./images/scores/TIME/5.png";
+        static public final String SIX_TIME_FILE_NAME = "./images/scores/TIME/6.png";
+        static public final String SEVEN_TIME_FILE_NAME = "./images/scores/TIME/7.png";
+        static public final String EIGHT_TIME_FILE_NAME = "./images/scores/TIME/8.png";
+        static public final String NINE_TIME_FILE_NAME = "./images/scores/TIME/9.png";
+
+
 
     //POINT
     static public final String POINT_FILE_NAME = "./images/point/point.png";
@@ -119,6 +132,16 @@ public class Constants {
     static public final String GAME_OVER_FILE_NAME = "./images/menu/words/GAME_OVER.png";
     static public final String HIGH_SCORE_FILE_NAME = "./images/menu/words/HIGH_SCORE.png";
 
+    //HEALTH_&_STAMINA
+        //HEALTH
+        static public final String ZERO_HEALTH_FILE_NAME = "./images/health_&_stamina/health/zeroHealth.png";
+        static public final String ONE_HEALTH_FILE_NAME = "./images/health_&_stamina/health/oneHealth.png";
+        static public final String TWO_HEALTH_FILE_NAME = "./images/health_&_stamina/health/twoHealth.png";
+        static public final String THREE_HEALTH_FILE_NAME = "./images/health_&_stamina/health/threeHealth.png";
+        static public final String FOUR_HEALTH_FILE_NAME = "./images/health_&_stamina/health/fourHealth.png";
+
+        //STAMINA
+        static public final String STAMINA_FILE_NAME = "./images/health_&_stamina/stamina/stamina.png";
 
     //SCREEN
     static public final int DEFAULT_SCREEN_HEIGHT = 600;
