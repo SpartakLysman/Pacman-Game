@@ -26,8 +26,7 @@ public class DigitsBlock implements DigitsBlockDelegate {
         } else {
             if (currentValue < 24) {
                 currentValue++;
-            }
-            else {
+            } else {
                 reset();
             }
         }
@@ -35,6 +34,14 @@ public class DigitsBlock implements DigitsBlockDelegate {
 
     public void setDelegate(DigitsBlockDelegate delegate) {
         this.delegate = delegate;
+    }
+
+    public String getFirstDigit() {
+        return String.valueOf(toString().charAt(0));
+    }
+
+    public String getSecondDigit() {
+        return String.valueOf(toString().charAt(1));
     }
 
     @Override

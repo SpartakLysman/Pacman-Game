@@ -5,7 +5,9 @@ import pacmanGame.screens.gameScreen.Direction;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
+
+import static helpers.ImageHelper.scaleImage;
 
 public class GameShape { //configure with model. configurable interface.->baseModel
 
@@ -19,17 +21,6 @@ public class GameShape { //configure with model. configurable interface.->baseMo
         System.out.println("Image: " + image);
     }
 
-    protected Image scaleImage(Image image, int imageSize) {
-        //System.out.println("Image= " + image);
-        BufferedImage resizedImage = new BufferedImage(imageSize, imageSize, BufferedImage.TYPE_INT_ARGB);
-        // Малюємо масштабоване зображення у новий BufferedImage
-        Graphics2D g2d = resizedImage.createGraphics();
-        g2d.drawImage(image, 0, 0, imageSize, imageSize, null);
-        g2d.dispose();
-
-        return resizedImage;
-    }
-
     public Image getImage() {
         return image;
     }
@@ -39,11 +30,11 @@ public class GameShape { //configure with model. configurable interface.->baseMo
     }
 
     public int getX() {
-       return model.getX();
+        return model.getX();
     }
 
     public int getY() {
-       return model.getY();
+        return model.getY();
     }
 
     public boolean move(Direction direction) {

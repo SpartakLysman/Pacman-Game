@@ -13,8 +13,8 @@ import java.io.IOException;
 
 public class ScorePanel extends JPanel {
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private GameModel model;
     private JButton backButton;
 

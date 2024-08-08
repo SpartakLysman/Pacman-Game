@@ -118,7 +118,6 @@ public class GameScreenFrame extends JFrame {
         getContentPane().add(healthPanel, BorderLayout.SOUTH);
         getContentPane().add(fieldPanel, BorderLayout.CENTER);
         getContentPane().add(scorePanel, BorderLayout.NORTH);
-        //getContentPane().add(timePanel, BorderLayout.EAST);
 
         revalidate();
         repaint();
